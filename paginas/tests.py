@@ -44,3 +44,31 @@ class PruebasPaginaSaludo(SimpleTestCase):
         respuesta = self.client.get(reverse("saludo", args=["luis"]))
         self.assertEqual(respuesta.status_code, 200)
         self.assertContains(respuesta, "¡Hola, Luis!")
+
+class PruebasPaginaProyectos(SimpleTestCase):
+    def test_url_existe_en_ubicacion_correcta(self):
+        respuesta = self.client.get("/proyectos/")
+        self.assertEqual(respuesta.status_code, 200)
+
+    def test_url_disponible_por_nombre(self):
+        respuesta = self.client.get(reverse("proyectos"))
+        self.assertEqual(respuesta.status_code, 200)
+
+    def test_plantilla_correcta(self):
+        respuesta = self.client.get(reverse("proyectos"))
+        self.assertTemplateUsed(respuesta, "paginas/proyectos.html")
+
+    def test_contenido_plantilla(self):
+        respuesta = self.client.get(reverse("proyectos"))
+        self.assertContains(respuesta, "<h1>Proyectos</h1>")
+
+
+class PruebasPaginaCuadrado(SimpleTestCase):
+    def test_muestra_el_cuadrado_de_un_numero(self):
+        respuesta = self.client.get(reverse("cuadrado", args=[7]))
+        self.assertEqual(respuesta.status_code, 200)
+        self.assertContains(respuesta, "49")
+
+    def test_rechaza_un_valor_que_no_es_entero(self):
+        respuesta = self.client.get("/cuadrado/abc/")
+        self.assertEqual(respuesta.status_code, 404)
