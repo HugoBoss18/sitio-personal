@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from environs import Env  # nuevo
+
+env = Env()  # nuevo
+env.read_env()  # nuevo
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,13 +26,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-59l$$vs#plyx&z*lu9qa*@!&+m$^64+sxba6_c5&9a8@y5=1rd'
+# SECRET_KEY = 'django-insecure-59l$$vs#plyx&z*lu9qa*@!&+m$^64+sxba6_c5&9a8@y5=1rd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+SECRET_KEY = env.str("SECRET_KEY")  # nuevo
 
+DEBUG = env.bool("DEBUG", default=False)  # nuevo
+
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])  # nuevo
+
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])  # nuevo
 
 # Application definition
 
