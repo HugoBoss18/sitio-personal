@@ -143,3 +143,10 @@ STORAGEs ={
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# HTTPS
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")  # nuevo
+SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=False)  # nuevo
+SECURE_HSTS_SECONDS = env.int("SECURE_HSTS_SECONDS", default=0)  # nuevo
+SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=False)  # nuevo
+CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=False)  # nuevo
