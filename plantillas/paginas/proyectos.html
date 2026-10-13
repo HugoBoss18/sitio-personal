@@ -1,0 +1,19 @@
+<!-- templates/inicio.html -->
+{% extends "paginas/base.html" %}
+
+{% block titulo %}Inicio{% endblock titulo %}
+
+{% block contenido %}
+
+<h1>Proyectos</h1>
+
+<p>Estas son mis {{ proyectos|length }} proyectos:</p>
+<ul>
+  {% for proyecto in proyectos %}
+    <li>
+      <strong>{{ proyecto.nombre }}</strong> - {{ proyecto.descripcion }}
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock contenido %}
